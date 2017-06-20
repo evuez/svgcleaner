@@ -139,7 +139,7 @@ fn ungroup_group(g: &Node) {
                     // We can't just replace 'opacity' attribute,
                     // we should multiply it.
                     let op1: f64 = *attr.value.as_number().unwrap();
-                    let op2: f64 = *child.attribute_value(aid).unwrap()
+                    let op2: f64 = *child.attributes().get_value(aid).unwrap()
                                          .as_number().unwrap();
                     child.set_attribute(aid, op1 * op2);
                     continue;
@@ -151,11 +151,13 @@ fn ungroup_group(g: &Node) {
                     // We should multiply transform matrices.
                     let mut t1 = *attr.value.as_transform().unwrap();
 
-                    let a2 = child.attribute_value(aid).unwrap();
-                    let t2 = a2.as_transform().unwrap();
+                    let mut attrs = child.attributes_mut();
+                    let av = attrs.get_value_mut(AId::Transform);
+                    if let Some(&mut AttributeValue::Transform(ref mut ts)) = av {
+                        t1.append(&ts);
+                        *ts = t1;
+                    }
 
-                    t1.append(t2);
-                    child.set_attribute(aid, t1);
                     continue;
                 }
             }
