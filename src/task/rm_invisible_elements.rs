@@ -239,7 +239,7 @@ fn process_gradients(doc: &Document, is_any_removed: &mut bool) {
         for n in iter {
             for link in n.linked_nodes().collect::<Vec<Node>>() {
                 while let Some(aid) = find_link_attribute(&link, &n) {
-                    link.set_attribute(aid, ValueId::None);
+                    link.set_attribute((aid, ValueId::None));
                 }
             }
             nodes.push(n.clone());
@@ -270,11 +270,11 @@ fn process_gradients(doc: &Document, is_any_removed: &mut bool) {
                          .filter(|n| !n.is_gradient())
                          .collect::<Vec<Node>>() {
                 while let Some(aid) = find_link_attribute(&link, &n) {
-                    link.set_attribute(aid, color);
+                    link.set_attribute((aid, color));
                     if opacity.fuzzy_ne(&1.0) {
                         match aid {
-                            AId::Fill => link.set_attribute(AId::FillOpacity, opacity),
-                            AId::Stroke => link.set_attribute(AId::StrokeOpacity, opacity),
+                            AId::Fill => link.set_attribute((AId::FillOpacity, opacity)),
+                            AId::Stroke => link.set_attribute((AId::StrokeOpacity, opacity)),
                             _ => {}
                         }
                     }

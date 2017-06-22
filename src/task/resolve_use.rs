@@ -89,7 +89,7 @@ pub fn resolve_use(doc: &Document) {
 
         // Copy attributes.
         for attr in node.attributes().iter() {
-            link.set_attribute_object(attr.clone());
+            link.set_attribute(attr.clone());
         }
 
         // TODO: maybe just change the tag name

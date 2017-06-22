@@ -128,7 +128,7 @@ pub mod utils {
         let mut len = *value.as_length().unwrap();
         if len.num.fuzzy_ne(&0.0) {
             len.num *= scale_factor;
-            node.set_attribute(aid, len);
+            node.set_attribute((aid, len));
         }
     }
 
@@ -153,7 +153,7 @@ pub mod utils {
                 for n in &mut list {
                     n.num *= scale_factor
                 }
-                node.set_attribute(aid, list);
+                node.set_attribute((aid, list));
             }
         }
     }

@@ -151,7 +151,7 @@ fn process_fill(node: &Node) {
         let av = node.attributes().get_value(AId::FillOpacity).cloned();
         if let Some(av) = av {
             if av == AttributeValue::Number(0.0) {
-                node.set_attribute(AId::Fill, ValueId::None);
+                node.set_attribute((AId::Fill, ValueId::None));
                 node.remove_attribute(AId::FillRule);
                 node.remove_attribute(AId::FillOpacity);
             }
@@ -208,7 +208,7 @@ fn process_stroke(node: &Node) {
             if let Some(n) = node.parents().find(|n| n.has_attribute(AId::Stroke)) {
                 let value = n.attributes().get_value(AId::Stroke).cloned().unwrap();
                 if value != AttributeValue::PredefValue(ValueId::None) {
-                    node.set_attribute(AId::Stroke, ValueId::None);
+                    node.set_attribute((AId::Stroke, ValueId::None));
                 }
             }
         } else {

@@ -546,7 +546,7 @@ fn move_nodes(attributes: &[Attribute], g_node: &Node, node_list: &[Node], range
                 ts.append(child_ts);
             }
         } else {
-            g_node.set_attribute_object(attr.clone());
+            g_node.set_attribute(attr.clone());
         }
     }
 }

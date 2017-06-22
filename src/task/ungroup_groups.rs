@@ -141,7 +141,7 @@ fn ungroup_group(g: &Node) {
                     let op1: f64 = *attr.value.as_number().unwrap();
                     let op2: f64 = *child.attributes().get_value(aid).unwrap()
                                          .as_number().unwrap();
-                    child.set_attribute(aid, op1 * op2);
+                    child.set_attribute((aid, op1 * op2));
                     continue;
                 }
             }
@@ -165,7 +165,7 @@ fn ungroup_group(g: &Node) {
             if aid == AId::Display {
                 // Display attribute has a priority during rendering, so we must
                 // copy it even if a child has it already.
-                child.set_attribute(aid, attr.value.clone());
+                child.set_attribute((aid, attr.value.clone()));
                 continue;
             }
 
@@ -173,9 +173,9 @@ fn ungroup_group(g: &Node) {
                 match attr.value {
                     AttributeValue::Link(ref iri) | AttributeValue::FuncLink(ref iri) => {
                         // If it's fail - it's already a huge problem, so unwrap is harmless.
-                        child.set_link_attribute(aid, iri.clone()).unwrap();
+                        child.set_attribute((aid, iri.clone()));
                     }
-                    _ => child.set_attribute(aid, attr.value.clone()),
+                    _ => child.set_attribute((aid, attr.value.clone())),
                 }
             }
         }

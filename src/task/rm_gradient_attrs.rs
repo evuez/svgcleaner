@@ -111,7 +111,7 @@ fn group_to_parent(doc: &Document) {
             // If all linked gradients has the 'objectBoundingBox' value - move
             // it to the parent and remove from linked.
 
-            node.set_attribute(AId::GradientUnits, ValueId::ObjectBoundingBox);
+            node.set_attribute((AId::GradientUnits, ValueId::ObjectBoundingBox));
 
             for n in node.linked_nodes() {
                 make_attr_invisible(&n.clone(), AId::GradientUnits);
@@ -120,7 +120,7 @@ fn group_to_parent(doc: &Document) {
             // If all linked gradients has the 'userSpaceOnUse' value - move
             // it to the parent and remove from linked.
 
-            node.set_attribute(AId::GradientUnits, ValueId::UserSpaceOnUse);
+            node.set_attribute((AId::GradientUnits, ValueId::UserSpaceOnUse));
 
             for n in node.linked_nodes() {
                 make_attr_invisible(&n.clone(), AId::GradientUnits);
@@ -129,7 +129,7 @@ fn group_to_parent(doc: &Document) {
             // If most linked gradients has the 'objectBoundingBox' value - move
             // it to the parent and remove from linked.
 
-            node.set_attribute(AId::GradientUnits, ValueId::ObjectBoundingBox);
+            node.set_attribute((AId::GradientUnits, ValueId::ObjectBoundingBox));
 
             for n in node.linked_nodes() {
                 let av = n.attributes().get_value(AId::GradientUnits).cloned();
@@ -137,7 +137,7 @@ fn group_to_parent(doc: &Document) {
                     if av == AttributeValue::PredefValue(ValueId::ObjectBoundingBox) {
                         make_attr_invisible(&n.clone(), AId::GradientUnits);
                     } else {
-                        n.clone().set_attribute(AId::GradientUnits, ValueId::UserSpaceOnUse);
+                        n.clone().set_attribute((AId::GradientUnits, ValueId::UserSpaceOnUse));
                     }
                 }
             }
@@ -145,7 +145,7 @@ fn group_to_parent(doc: &Document) {
             // If most linked gradients has the 'userSpaceOnUse' value - move
             // it to the parent and remove from linked.
 
-            node.set_attribute(AId::GradientUnits, ValueId::UserSpaceOnUse);
+            node.set_attribute((AId::GradientUnits, ValueId::UserSpaceOnUse));
 
             for n in node.linked_nodes() {
                 let av = n.attributes().get_value(AId::GradientUnits).cloned();
@@ -153,7 +153,7 @@ fn group_to_parent(doc: &Document) {
                     if av == AttributeValue::PredefValue(ValueId::UserSpaceOnUse) {
                         make_attr_invisible(&n.clone(), AId::GradientUnits);
                     } else {
-                        n.clone().set_attribute(AId::GradientUnits, ValueId::ObjectBoundingBox);
+                        n.clone().set_attribute((AId::GradientUnits, ValueId::ObjectBoundingBox));
                     }
                 }
             }
