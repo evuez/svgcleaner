@@ -314,7 +314,7 @@ mod table_tests {
          fill=\"red\" |-****|\n\
          fill=\"red\" |-***-|");
 
-    // We care only about longest range, not about number of set flags.
+    // We care only about longest range, not about a number of set flags.
     test_all!(sort_2,
         ["*****-******", "**********--"],
         "fill=\"red\" |**********--|\n\

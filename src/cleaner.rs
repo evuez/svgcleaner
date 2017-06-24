@@ -143,7 +143,7 @@ pub fn clean_doc(doc: &Document, options: &Options, opt: &WriteOptions)
         convert_shapes_to_paths(doc);
     }
 
-    // NOTE: run before 'remove_invisible_elements', because this method can remove all
+    // NOTE: Run before 'remove_invisible_elements', because this method can remove all
     //       segments from the path which makes it invisible.
     if options.paths_to_relative {
         // We only process path's segments if 'PathsToRelative' is enabled.
