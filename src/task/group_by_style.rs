@@ -538,12 +538,12 @@ fn move_nodes(attributes: &[Attribute], g_node: &Node, node_list: &[Node], range
     // Set moved attributes to the 'g' element.
     for attr in attributes {
         if attr.id().unwrap() == AId::Transform && g_node.has_attribute(AId::Transform) {
-            let child_ts = attr.value.as_transform().unwrap();
-
-            let mut attrs = g_node.attributes_mut();
-            let av = attrs.get_value_mut(AId::Transform);
-            if let Some(&mut AttributeValue::Transform(ref mut ts)) = av {
-                ts.append(child_ts);
+            if let AttributeValue::Transform(ref child_ts) = attr.value {
+                let mut attrs = g_node.attributes_mut();
+                let av = attrs.get_value_mut(AId::Transform);
+                if let Some(&mut AttributeValue::Transform(ref mut ts)) = av {
+                    ts.append(child_ts);
+                }
             }
         } else {
             g_node.set_attribute(attr.clone());

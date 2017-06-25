@@ -49,7 +49,7 @@ pub fn resolve_use(doc: &Document) {
                 }
 
                 // Element should be used only once.
-                if link.linked_nodes().count() != 1 {
+                if link.uses_count() != 1 {
                     continue;
                 }
 

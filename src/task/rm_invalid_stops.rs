@@ -21,6 +21,7 @@
 ****************************************************************************/
 
 use task::short::AId;
+use task::utils;
 
 use svgdom::{Document, ElementType};
 
@@ -31,7 +32,7 @@ pub fn remove_invalid_stops(doc: &Document) {
                   .filter(|n| n.is_gradient())
                   .filter(|n| n.has_children());
     for node in iter {
-        let mut prev_child = node.children().nth(0).unwrap();
+        let mut prev_child = node.first_child().unwrap();
 
         for child in node.children().skip(1) {
             {
@@ -50,9 +51,7 @@ pub fn remove_invalid_stops(doc: &Document) {
         }
     }
 
-    for n in nodes {
-        n.remove();
-    }
+    utils::remove_nodes(&mut nodes);
 }
 
 #[cfg(test)]

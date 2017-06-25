@@ -138,7 +138,11 @@ pub mod utils {
         }
     }
 
+    // TODO: remove
     pub fn get_ts(node: &Node) -> Transform {
-        *node.attributes().get_value(AId::Transform).unwrap().as_transform().unwrap()
+        match node.attributes().get_value(AId::Transform).cloned() {
+            Some(AttributeValue::Transform(ts)) => ts,
+            _ => unreachable!("attribute must be resolved"),
+        }
     }
 }

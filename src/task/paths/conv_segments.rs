@@ -179,7 +179,7 @@ fn is_point_on_line(x1: f64, y1: f64, x2: f64, y2: f64, x: f64, y: f64) -> bool 
         let a = (y2 - y1) / (x2 - x1);
         let b = y1 - a * x1;
         let c = (y - (a * x + b)).abs();
-        c.fuzzy_eq(&0.0)
+        c.is_fuzzy_zero()
     };
 
     if !is_on_line() {

@@ -53,10 +53,11 @@ fn recalc_stroke_num(node: &Node, aid: AId, scale_factor: f64) {
         }
     };
 
-    let mut len = *value.as_length().unwrap();
-    if len.num.fuzzy_ne(&0.0) {
-        len.num *= scale_factor;
-        node.set_attribute((aid, len));
+    if let AttributeValue::Length(mut len) = value {
+        if !len.num.is_fuzzy_zero() {
+            len.num *= scale_factor;
+            node.set_attribute((aid, len));
+        }
     }
 }
 
@@ -86,6 +87,12 @@ fn recalc_stroke_dasharray(node: &Node, scale_factor: f64) {
     }
 }
 
+pub fn remove_nodes(nodes: &mut Vec<Node>) {
+    for n in nodes.iter() {
+        n.remove();
+    }
+    nodes.clear();
+}
 
 #[cfg(test)]
 mod tests {

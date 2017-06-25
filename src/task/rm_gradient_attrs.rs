@@ -26,7 +26,7 @@ use svgdom::{Document, ElementType, Node, AttributeValue, ValueId};
 
 pub fn remove_gradient_attributes(doc: &Document) {
     // TODO: process coordinates and transform
-    //       we will get a small impact on a cleaning ratio, so keep it for the next release
+    //       we will get a small impact on a cleaning ratio, so keep it for a next release
     process_units(doc);
 }
 
@@ -99,7 +99,7 @@ fn group_to_parent(doc: &Document) {
                               .collect();
 
     for node in &nodes {
-        let total_count = node.linked_nodes().count();
+        let total_count = node.uses_count();
         let count = node.linked_nodes()
                         .filter(|n| {
                             n.attributes().get_value(AId::GradientUnits) ==

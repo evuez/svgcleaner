@@ -57,10 +57,12 @@ pub fn fix_xmlns_attribute(doc: &Document, rm_unused: bool) {
         }
     }
 
-    if !has_links && rm_unused && svg.has_attribute(AId::XmlnsXlink) {
+    let has_xlink = svg.has_attribute(AId::XmlnsXlink);
+
+    if !has_links && rm_unused && has_xlink {
         // Remove if no links are used.
         svg.remove_attribute(AId::XmlnsXlink);
-    } else if has_links && !svg.has_attribute(AId::XmlnsXlink) {
+    } else if has_links && !has_xlink {
         // Set if needed.
         svg.set_attribute((AId::XmlnsXlink, "http://www.w3.org/1999/xlink"));
     }

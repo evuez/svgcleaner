@@ -63,18 +63,16 @@ fn rm_loop<F>(nodes: &mut Vec<Node>, cmp: F)
 
             // Collect linked nodes.
             for ln in node2.linked_nodes() {
-                {
-                    let attrs = ln.attributes();
+                let attrs = ln.attributes();
 
-                    for attr in attrs.iter() {
-                        match attr.value {
-                            AttributeValue::Link(ref n) | AttributeValue::FuncLink(ref n) => {
-                                if *n == node2 {
-                                    link_attrs.push((ln.clone(), attr.id().unwrap(), node1.clone()));
-                                }
+                for attr in attrs.iter() {
+                    match attr.value {
+                        AttributeValue::Link(ref n) | AttributeValue::FuncLink(ref n) => {
+                            if *n == node2 {
+                                link_attrs.push((ln.clone(), attr.id().unwrap(), node1.clone()));
                             }
-                            _ => {}
                         }
+                        _ => {}
                     }
                 }
             }

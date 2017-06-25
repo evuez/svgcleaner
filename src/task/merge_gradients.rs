@@ -20,9 +20,10 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId};
-
 use svgdom::{Document, ElementType, Node, AttributeValue};
+
+use super::short::{EId, AId};
+use super::utils;
 
 static LG_ATTRIBUTES: &'static [AId] = &[
     AId::GradientUnits,
@@ -55,9 +56,7 @@ pub fn merge_gradients(doc: &Document) {
             break;
         }
 
-        while let Some(n) = nodes.pop() {
-            n.remove();
-        }
+        utils::remove_nodes(&mut nodes);
     }
 }
 
