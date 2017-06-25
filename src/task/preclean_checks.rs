@@ -20,10 +20,13 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId};
+use svgdom::{
+    AttributeType,
+    AttributeValue,
+    Document,
+};
 
-use svgdom::{Document, AttributeValue, AttributeType};
-
+use task::short::{EId, AId};
 use error::Error;
 
 pub fn preclean_checks(doc: &Document) -> Result<(), Error> {

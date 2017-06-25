@@ -29,10 +29,17 @@ mod gradients;
 mod shapes;
 
 pub mod utils {
-    use task::short::{EId, AId, Unit};
+    use svgdom::{
+        Attributes,
+        AttributeValue,
+        Node,
+    };
+    use svgdom::types::{
+        Length,
+        Transform,
+    };
 
-    use svgdom::{Node, Attributes, AttributeValue};
-    use svgdom::types::{Length, Transform};
+    use task::short::{EId, AId, Unit};
 
     // TODO: remove
     pub fn has_valid_transform(node: &Node) -> bool {

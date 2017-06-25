@@ -20,9 +20,15 @@
 **
 ****************************************************************************/
 
-use svgdom::{Document, Node, AttributeValue, Error as SvgDomError};
+use svgdom::{
+    postproc,
+    AttributeValue,
+    Document,
+    Error as SvgDomError,
+    Node,
+};
 use svgdom::types::FuzzyEq;
-use svgdom::postproc;
+
 use task::short::AId;
 
 pub fn resolve_gradient_attributes(doc: &Document) -> Result<(), SvgDomError> {

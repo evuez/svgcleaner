@@ -20,10 +20,15 @@
 **
 ****************************************************************************/
 
-use svgdom::{Document, ElementType, Node, AttributeValue};
+use svgdom::{
+    AttributeValue,
+    Document,
+    ElementType,
+    Node,
+};
 
-use super::short::{EId, AId};
-use super::utils;
+use task::short::{EId, AId};
+use task::utils;
 
 static LG_ATTRIBUTES: &'static [AId] = &[
     AId::GradientUnits,

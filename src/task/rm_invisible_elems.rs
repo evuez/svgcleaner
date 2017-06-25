@@ -20,11 +20,17 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId};
-use super::utils;
-
-use svgdom::{Document, Node, ElementType, AttributeValue, ValueId};
+use svgdom::{
+    AttributeValue,
+    Document,
+    ElementType,
+    Node,
+    ValueId,
+};
 use svgdom::types::FuzzyEq;
+
+use task::short::{EId, AId};
+use task::utils;
 
 // TODO: process mask element
 // TODO: process visibility

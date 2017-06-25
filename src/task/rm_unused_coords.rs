@@ -20,9 +20,12 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId};
+use svgdom::{
+    AttributeValue,
+    Document,
+};
 
-use svgdom::{Document, AttributeValue};
+use task::short::{EId, AId};
 
 pub fn remove_unused_coordinates(doc: &Document) {
     let mut rm_list = Vec::with_capacity(16);

@@ -20,10 +20,18 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId, Unit};
+use svgdom::{
+    AttributeValue,
+    Document,
+    Node,
+};
+use svgdom::types::{
+    path,
+    FuzzyEq,
+    Length,
+};
 
-use svgdom::{Document, Node, AttributeValue};
-use svgdom::types::{path, Length, FuzzyEq};
+use task::short::{EId, AId, Unit};
 
 // TODO: convert thin rect to line-to path
 // view-calendar-list.svg

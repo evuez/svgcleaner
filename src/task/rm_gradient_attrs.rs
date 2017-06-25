@@ -20,9 +20,15 @@
 **
 ****************************************************************************/
 
-use super::short::AId;
+use svgdom::{
+    AttributeValue,
+    Document,
+    ElementType,
+    Node,
+    ValueId,
+};
 
-use svgdom::{Document, ElementType, Node, AttributeValue, ValueId};
+use task::short::AId;
 
 pub fn remove_gradient_attributes(doc: &Document) {
     // TODO: process coordinates and transform

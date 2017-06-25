@@ -20,10 +20,14 @@
 **
 ****************************************************************************/
 
+use svgdom::{
+    AttributeValue,
+    Document,
+    ElementType,
+};
+
 use task::short::{EId, AId};
 use super::utils;
-
-use svgdom::{Document, ElementType, AttributeValue};
 
 pub fn apply_transform_to_gradients(doc: &Document) {
     let iter = doc.descendants().svg()

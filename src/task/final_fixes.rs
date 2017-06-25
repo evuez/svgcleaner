@@ -20,9 +20,9 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId};
-
 use svgdom::Document;
+
+use task::short::{EId, AId};
 
 // TODO: is 'svg' element contains only one element and it's 'g' element - ungroup it
 

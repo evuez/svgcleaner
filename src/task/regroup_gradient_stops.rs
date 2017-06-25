@@ -20,10 +20,14 @@
 **
 ****************************************************************************/
 
-use task::short::{EId, AId};
+use svgdom::{
+    postproc,
+    Document,
+    ElementType,
+    Node,
+};
 
-use svgdom::{Document, ElementType, Node};
-use svgdom::postproc;
+use task::short::{EId, AId};
 
 pub fn regroup_gradient_stops(doc: &Document) {
     let mut nodes: Vec<Node> = doc.descendants().svg()

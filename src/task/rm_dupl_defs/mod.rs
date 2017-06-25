@@ -20,6 +20,14 @@
 **
 ****************************************************************************/
 
+use svgdom::{
+    AttributeValue,
+    Node,
+};
+use svgdom::types::Transform;
+
+use task::short::AId;
+
 pub use self::linear_gradient::remove_dupl_linear_gradients;
 pub use self::radial_gradient::remove_dupl_radial_gradients;
 pub use self::fe_gaussian_blur::remove_dupl_fe_gaussian_blur;
@@ -27,10 +35,6 @@ pub use self::fe_gaussian_blur::remove_dupl_fe_gaussian_blur;
 mod linear_gradient;
 mod radial_gradient;
 mod fe_gaussian_blur;
-
-use task::short::AId;
-use svgdom::types::{Transform};
-use svgdom::{Node, AttributeValue};
 
 macro_rules! check_attr {
     ($attrs1:expr, $attrs2:expr, $id:expr, $def:expr) => ({

@@ -20,21 +20,25 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId};
+use svgdom::{
+    AttributeValue,
+    Document,
+    Node,
+};
+
+use task::short::{EId, AId};
 use task::apply_transforms;
-use options::Options;
+use options::CleaningOptions;
 
-use svgdom::{Document, Node, AttributeValue};
-
-pub fn ungroup_groups(doc: &Document, options: &Options) {
+pub fn ungroup_groups(doc: &Document, opt: &CleaningOptions) {
     let mut groups = Vec::with_capacity(16);
 
     // doc must contain 'svg' node, so we can safely unwrap.
     let svg = doc.svg_element().unwrap();
     loop {
-        apply_transforms::prepare_transforms(doc, options);
+        apply_transforms::prepare_transforms(doc, opt);
 
-        _ungroup_groups(&svg, &mut groups, options);
+        _ungroup_groups(&svg, &mut groups, opt);
 
         if groups.is_empty() {
             break;
@@ -49,7 +53,7 @@ pub fn ungroup_groups(doc: &Document, options: &Options) {
 
 // Fill 'groups' vec with 'g' elements that should be removed.
 // This method is recursive.
-fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>, options: &Options) {
+fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>, opt: &CleaningOptions) {
     // We can't ungroup groups if they have one of the listed attribute.
     // Checkout 'painting-marker-02-f.svg' in 'W3C_SVG_11_TestSuite' for details.
     let invalid_attrs = [AId::Mask, AId::ClipPath, AId::Filter];
@@ -126,7 +130,7 @@ fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>, options: &Options) {
         }
 
         if node.has_children() {
-            _ungroup_groups(&node, groups, options);
+            _ungroup_groups(&node, groups, opt);
         }
     }
 }
@@ -201,7 +205,7 @@ mod tests {
     use super::*;
     use svgdom::{Document, WriteToString};
     use task::{group_defs, remove_empty_defs, rm_unused_defs};
-    use options::Options;
+    use options::CleaningOptions;
 
     macro_rules! test {
         ($name:ident, $in_text:expr, $out_text:expr) => (
@@ -212,7 +216,7 @@ mod tests {
                 // Prepare defs.
                 group_defs(&doc);
 
-                let mut options = Options::default();
+                let mut options = CleaningOptions::default();
                 options.apply_transform_to_shapes = true;
                 options.paths_to_relative = true;
                 options.apply_transform_to_paths = true;

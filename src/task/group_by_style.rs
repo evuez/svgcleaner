@@ -24,9 +24,17 @@ use std::fmt;
 use std::cmp;
 use std::ops::Range;
 
-use super::short::{EId, AId};
+use svgdom::{
+    Attribute,
+    AttributeType,
+    AttributeValue,
+    Document,
+    Indent,
+    Node,
+    WriteOptions,
+};
 
-use svgdom::{Document, Node, Attribute, AttributeValue, AttributeType, WriteOptions, Indent};
+use task::short::{EId, AId};
 
 // TODO: optimize, since Table is basically Vec<(Vec,Vec)>, which is not very efficient
 struct Table {

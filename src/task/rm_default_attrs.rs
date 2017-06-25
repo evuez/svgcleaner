@@ -20,10 +20,16 @@
 **
 ****************************************************************************/
 
-use super::short::{EId, AId, Unit};
-
-use svgdom::{Document, Attribute, AttributeType, AttributeValue, ValueId};
+use svgdom::{
+    Attribute,
+    AttributeType,
+    AttributeValue,
+    Document,
+    ValueId,
+};
 use svgdom::types::Length;
+
+use task::short::{EId, AId, Unit};
 
 // TODO: xml:space
 

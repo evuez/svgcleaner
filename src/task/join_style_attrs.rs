@@ -20,10 +20,14 @@
 **
 ****************************************************************************/
 
-use super::short::AId;
+use svgdom::{
+    AttributeType,
+    Document,
+    WriteBuffer,
+    WriteOptions,
+};
 
-use svgdom::{Document, AttributeType, WriteOptions, WriteBuffer};
-
+use task::short::AId;
 use options::StyleJoinMode;
 
 pub fn join_style_attributes(doc: &Document, mode: StyleJoinMode, opt: &WriteOptions) {
