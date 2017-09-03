@@ -34,7 +34,7 @@ pub fn ungroup_groups(doc: &Document, opt: &CleaningOptions) {
     loop {
         apply_transforms::prepare_transforms(doc, opt);
 
-        _ungroup_groups(&svg, &mut groups, opt);
+        _ungroup_groups(&svg, &mut groups);
 
         if groups.is_empty() {
             break;
@@ -49,7 +49,7 @@ pub fn ungroup_groups(doc: &Document, opt: &CleaningOptions) {
 
 // Fill 'groups' vec with 'g' elements that should be removed.
 // This method is recursive.
-fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>, opt: &CleaningOptions) {
+fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>) {
     // We can't ungroup groups if they have one of the listed attribute.
     // Checkout 'painting-marker-02-f.svg' in 'W3C_SVG_11_TestSuite' for details.
     let invalid_attrs = [AId::Mask, AId::ClipPath, AId::Filter];
@@ -57,6 +57,10 @@ fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>, opt: &CleaningOptions)
     // TODO: we should not ungroup groups with non-inheritable attributes.
 
     for node in parent.children() {
+        if node.has_children() {
+            _ungroup_groups(&node, groups);
+        }
+
         if node.is_tag_name(EId::G) {
             if !node.has_children() && !node.has_attribute(AId::Filter) {
                 // Empty group without filter attribute.
@@ -123,10 +127,6 @@ fn _ungroup_groups(parent: &Node, groups: &mut Vec<Node>, opt: &CleaningOptions)
                     continue;
                 }
             }
-        }
-
-        if node.has_children() {
-            _ungroup_groups(&node, groups, opt);
         }
     }
 }
@@ -313,6 +313,28 @@ mod tests {
         <foreignObject/>
         <g>
             <rect/>
+        </g>
+    </switch>
+</svg>",
+"<svg>
+    <switch>
+        <foreignObject/>
+        <rect/>
+    </switch>
+</svg>
+");
+
+    test!(ungroup_6,
+"<svg>
+    <switch>
+        <foreignObject/>
+        <g>
+            <g>
+                <g>
+                    <rect/>
+                </g>
+                <g/>
+            </g>
         </g>
     </switch>
 </svg>",
