@@ -212,7 +212,7 @@ fn _remove_xml_space(parent: &Node) {
 }
 
 fn is_text_contains_spaces(text_node: &Node) -> bool {
-    debug_assert!(text_node.node_type() == NodeType::Text);
+    debug_assert_eq!(text_node.node_type(), NodeType::Text);
 
     let text = text_node.text();
 

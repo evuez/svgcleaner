@@ -64,11 +64,9 @@ pub fn remove_default_attributes(doc: &Document) {
                                 rm_list.push(aid);
                             }
                         }
-                    } else {
-                        if let AttributeValue::PredefValue(id) = attr.value {
-                            if id == ValueId::Hidden {
-                                rm_list.push(aid);
-                            }
+                    } else if let AttributeValue::PredefValue(id) = attr.value {
+                        if id == ValueId::Hidden {
+                            rm_list.push(aid);
                         }
                     }
                 }

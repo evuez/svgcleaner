@@ -33,7 +33,7 @@ use task::short::{EId, AId};
 pub fn remove_needless_attributes(doc: &Document) {
     for mut node in doc.descendants().svg() {
         match node.tag_id().unwrap() {
-            EId::ClipPath => process_clip_path(&mut node),
+            EId::ClipPath => process_clip_path(&node),
             EId::Rect => process_rect(&mut node),
             EId::Circle => process_circle(&mut node),
             EId::Ellipse => process_ellipse(&mut node),

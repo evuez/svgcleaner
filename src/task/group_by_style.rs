@@ -179,12 +179,10 @@ impl TableRow {
                 }
 
                 end = idx;
-            } else {
-                if let Some(s) = start {
-                    list.push(s..end);
-                    start = None;
-                    end = 0;
-                }
+            } else if let Some(s) = start {
+                list.push(s..end);
+                start = None;
+                end = 0;
             }
         }
         if let Some(s) = start {

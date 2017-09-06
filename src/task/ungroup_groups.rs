@@ -44,7 +44,7 @@ fn _ungroup_groups(parent: &Node, opt: &CleaningOptions) -> bool {
                 ungroup_group(&mut node);
                 node.remove();
 
-                apply_transforms::prepare_transforms(&parent, false, opt);
+                apply_transforms::prepare_transforms(parent, false, opt);
 
                 return true;
             }
@@ -162,7 +162,7 @@ fn ungroup_group(g: &mut Node) {
                         let mut attrs = child.attributes_mut();
                         let av = attrs.get_value_mut(AId::Transform);
                         if let Some(&mut AttributeValue::Transform(ref mut ts)) = av {
-                            t1.append(&ts);
+                            t1.append(ts);
                             *ts = t1;
                         }
                     }

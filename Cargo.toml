@@ -23,6 +23,9 @@ doc = false
 name = "svgcleaner"
 path = "src/main.rs"
 
+[dependencies]
+clippy = {version = "*", optional = true}
+
 [dependencies.svgdom]
 # latest
 git = "https://github.com/RazrFalcon/libsvgdom.git"

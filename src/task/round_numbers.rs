@@ -82,37 +82,28 @@ pub fn round_numbers(doc: &Document, opt: &CleaningOptions) {
                 AId::Transform |
                 AId::GradientTransform |
                 AId::PatternTransform => {
-                    match attr.value {
-                        AttributeValue::Transform(ref mut ts) => {
-                            round_number(&mut ts.a, ts_precision);
-                            round_number(&mut ts.b, ts_precision);
-                            round_number(&mut ts.c, ts_precision);
-                            round_number(&mut ts.d, ts_precision);
-                            round_number(&mut ts.e, coord_precision);
-                            round_number(&mut ts.f, coord_precision);
-                        }
-                        _ => {}
+                    if let AttributeValue::Transform(ref mut ts) = attr.value {
+                        round_number(&mut ts.a, ts_precision);
+                        round_number(&mut ts.b, ts_precision);
+                        round_number(&mut ts.c, ts_precision);
+                        round_number(&mut ts.d, ts_precision);
+                        round_number(&mut ts.e, coord_precision);
+                        round_number(&mut ts.f, coord_precision);
                     }
                 }
 
                 AId::D => {
-                    match attr.value {
-                        AttributeValue::Path(ref mut p) => {
-                            round_path(p, paths_precision);
-                        }
-                        _ => {}
+                    if let AttributeValue::Path(ref mut p) = attr.value {
+                        round_path(p, paths_precision);
                     }
                 }
 
                 AId::ViewBox |
                 AId::Points => {
-                    match attr.value {
-                        AttributeValue::NumberList(ref mut list) => {
-                            for n in list.iter_mut() {
-                                round_number(n, paths_precision);
-                            }
+                    if let AttributeValue::NumberList(ref mut list) = attr.value {
+                        for n in list.iter_mut() {
+                            round_number(n, paths_precision);
                         }
-                        _ => {}
                     }
                 }
 

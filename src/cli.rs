@@ -206,7 +206,7 @@ macro_rules! gen_precision {
 }
 
 pub fn prepare_app<'a, 'b>() -> App<'a, 'b> {
-    debug_assert!(KEYS.0.len() - 1 == Key::Stdout as usize);
+    debug_assert_eq!(KEYS.0.len() - 1, Key::Stdout as usize);
 
     // NOTE: We use custom help output, because 'clap' doesn't support
     //       args grouping.

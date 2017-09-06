@@ -54,10 +54,10 @@ pub fn group_defs(doc: &mut Document) {
             }
         }
 
-        for n in nodes.iter_mut() {
-            resolve_attrs(&n);
+        for n in &mut nodes {
+            resolve_attrs(n);
             n.detach();
-            defs.append(&n);
+            defs.append(n);
         }
     }
 
@@ -72,9 +72,9 @@ pub fn group_defs(doc: &mut Document) {
             }
         }
 
-        for n in nodes.iter_mut() {
+        for n in &mut nodes {
             n.detach();
-            defs.append(&n);
+            defs.append(n);
         }
     }
 
@@ -87,7 +87,7 @@ pub fn group_defs(doc: &mut Document) {
             }
         }
 
-        for n in nodes.iter_mut() {
+        for n in &mut nodes {
             // Unneeded defs already ungrouped and must be empty.
             debug_assert!(!n.has_children());
             n.remove();

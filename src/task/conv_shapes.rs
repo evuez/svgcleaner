@@ -162,7 +162,7 @@ fn points_to_path(node: &Node) -> Option<path::Path> {
     };
 
     // Points with an odd count of coordinates must be fixed in fix_attrs::fix_poly.
-    debug_assert!(points.len() % 2 == 0);
+    debug_assert_eq!(points.len() % 2, 0);
 
     let mut i = 0;
     while i < points.len() {

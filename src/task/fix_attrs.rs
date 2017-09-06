@@ -27,7 +27,7 @@ pub fn fix_invalid_attributes(doc: &Document) {
         match node.tag_id().unwrap() {
             EId::Rect => postproc::fix_rect_attributes(&mut node),
             EId::Polyline | EId::Polygon => postproc::fix_poly_attributes(&mut node),
-            EId::LinearGradient | EId::RadialGradient => postproc::fix_stop_attributes(&mut node),
+            EId::LinearGradient | EId::RadialGradient => postproc::fix_stop_attributes(&node),
             _ => {}
         }
     }
