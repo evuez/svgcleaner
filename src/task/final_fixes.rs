@@ -28,7 +28,7 @@ pub fn remove_empty_defs(doc: &Document) {
 
     // doc must contain 'svg' node, so we can safely unwrap.
     let svg = doc.svg_element().unwrap();
-    for child in svg.children() {
+    for mut child in svg.children() {
         if child.is_tag_name(EId::Defs) && !child.has_children() {
             child.remove();
             break;
@@ -38,7 +38,7 @@ pub fn remove_empty_defs(doc: &Document) {
 
 pub fn fix_xmlns_attribute(doc: &Document, rm_unused: bool) {
     // doc must contain 'svg' node, so we can safely unwrap.
-    let svg = doc.svg_element().unwrap();
+    let mut svg = doc.svg_element().unwrap();
 
     let mut has_links = false;
     for node in doc.descendants().svg() {

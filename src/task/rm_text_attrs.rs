@@ -63,7 +63,7 @@ pub fn remove_text_attributes(doc: &Document) {
     // only when there is no text in a whole doc.
     // Can't do it inside '_remove_text_attributes'.
     if !has_text {
-        for node in doc.descendants().svg() {
+        for mut node in doc.descendants().svg() {
             if node.is_tag_name(EId::FontFace) {
                 node.remove_attributes(TEXT_ATTRIBUTES);
             }
@@ -79,7 +79,7 @@ fn _remove_text_attributes(parent: &Node) -> bool {
 
     // Shorthand for no_text_data.
     let mut no_td = true;
-    for node in parent.children() {
+    for mut node in parent.children() {
         // The 'line-height' property has no effect on text layout in SVG.
         //
         // https://www.w3.org/TR/SVG/text.html#FontProperty
@@ -169,7 +169,7 @@ fn remove_xml_space(doc: &Document) {
 fn _remove_xml_space(parent: &Node) {
     // Processes the tree recursively.
 
-    for node in parent.children() {
+    for mut node in parent.children() {
         // Check that node has attribute xml:space=preserve.
         //
         // xml:space=default will be removed by remove_default_attributes.

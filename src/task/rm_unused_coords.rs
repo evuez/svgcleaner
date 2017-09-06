@@ -26,7 +26,7 @@ use task::short::{EId, AId};
 pub fn remove_unused_coordinates(doc: &Document) {
     let mut rm_list = Vec::with_capacity(16);
 
-    for node in doc.descendants().svg() {
+    for mut node in doc.descendants().svg() {
         {
             let attrs = node.attributes();
 

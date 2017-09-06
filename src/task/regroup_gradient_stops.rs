@@ -25,7 +25,7 @@ use svgdom::{
 
 use task::short::{EId, AId};
 
-pub fn regroup_gradient_stops(doc: &Document) {
+pub fn regroup_gradient_stops(doc: &mut Document) {
     let mut nodes: Vec<Node> = doc.descendants().svg()
         .filter(|n| n.is_gradient())
         .filter(|n| n.has_children())
@@ -38,7 +38,7 @@ pub fn regroup_gradient_stops(doc: &Document) {
     // TODO: join with rm_dupl_defs::rm_loop
     let mut i1 = 0;
     while i1 < nodes.len() {
-        let node1 = nodes[i1].clone();
+        let mut node1 = nodes[i1].clone();
 
         let mut i2 = i1 + 1;
         while i2 < nodes.len() {
@@ -56,12 +56,12 @@ pub fn regroup_gradient_stops(doc: &Document) {
         if !join_nodes.is_empty() {
             is_changed = true;
 
-            let new_lg = doc.create_element(EId::LinearGradient);
+            let mut new_lg = doc.create_element(EId::LinearGradient);
             let new_id = gen_id(doc, "lg");
             new_lg.set_id(new_id);
 
             while node1.has_children() {
-                let c = node1.first_child().unwrap();
+                let mut c = node1.first_child().unwrap();
                 c.detach();
                 new_lg.append(&c);
             }
@@ -69,9 +69,9 @@ pub fn regroup_gradient_stops(doc: &Document) {
 
             node1.insert_before(&new_lg);
 
-            for jn in &join_nodes {
+            for jn in &mut join_nodes {
                 while jn.has_children() {
-                    let c = jn.first_child().unwrap();
+                    let mut c = jn.first_child().unwrap();
                     c.remove();
                 }
                 jn.set_attribute((AId::XlinkHref, new_lg.clone()));
@@ -119,9 +119,9 @@ mod tests {
         ($name:ident, $in_text:expr, $out_text:expr) => (
             #[test]
             fn $name() {
-                let doc = Document::from_str($in_text).unwrap();
+                let mut doc = Document::from_str($in_text).unwrap();
                 utils::resolve_gradient_attributes(&doc).unwrap();
-                regroup_gradient_stops(&doc);
+                regroup_gradient_stops(&mut doc);
                 assert_eq_text!(doc.to_string_with_opt(&write_opt_for_tests!()), $out_text);
             }
         )

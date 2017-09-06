@@ -63,7 +63,7 @@ pub fn merge_gradients(doc: &Document) {
 
 fn _merge_gradients(doc: &Document, nodes: &mut Vec<Node>) {
     let iter = doc.descendants().svg().filter(|n| n.is_gradient());
-    for node in iter {
+    for mut node in iter {
         let linked_node;
 
         if let Some(av) = node.attributes().get_value(AId::XlinkHref) {
@@ -83,7 +83,7 @@ fn _merge_gradients(doc: &Document, nodes: &mut Vec<Node>) {
 
         if !node.has_children() {
             // Append 'stop' elements only when we don't have any before.
-            while let Some(child) = linked_node.first_child() {
+            while let Some(mut child) = linked_node.first_child() {
                 child.detach();
                 node.append(&child);
             }

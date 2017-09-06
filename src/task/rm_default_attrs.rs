@@ -32,7 +32,7 @@ use task::short::{EId, AId, Unit};
 pub fn remove_default_attributes(doc: &Document) {
     let mut rm_list = Vec::with_capacity(16);
 
-    for node in doc.descendants().svg() {
+    for mut node in doc.descendants().svg() {
         let tag_name = node.tag_id().unwrap();
 
         for (aid, attr) in node.attributes().iter_svg() {

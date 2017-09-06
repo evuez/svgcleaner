@@ -34,13 +34,13 @@ pub fn resolve_gradient_attributes(doc: &Document) -> Result<(), SvgDomError> {
     Ok(())
 }
 
-pub fn recalc_stroke(node: &Node, scale_factor: f64) {
+pub fn recalc_stroke(node: &mut Node, scale_factor: f64) {
     recalc_stroke_num(node, AId::StrokeWidth, scale_factor);
     recalc_stroke_dasharray(node, scale_factor);
     recalc_stroke_num(node, AId::StrokeDashoffset, scale_factor);
 }
 
-fn recalc_stroke_num(node: &Node, aid: AId, scale_factor: f64) {
+fn recalc_stroke_num(node: &mut Node, aid: AId, scale_factor: f64) {
     // Resolve current value.
     let value = if let Some(attr) = node.attributes().get(aid).cloned() {
         // Defined in the current node.
@@ -63,7 +63,7 @@ fn recalc_stroke_num(node: &Node, aid: AId, scale_factor: f64) {
     }
 }
 
-fn recalc_stroke_dasharray(node: &Node, scale_factor: f64) {
+fn recalc_stroke_dasharray(node: &mut Node, scale_factor: f64) {
     let aid = AId::StrokeDasharray;
 
     // Resolve current 'stroke-dasharray'.
@@ -90,7 +90,7 @@ fn recalc_stroke_dasharray(node: &Node, scale_factor: f64) {
 }
 
 pub fn remove_nodes(nodes: &mut Vec<Node>) {
-    for n in nodes.iter() {
+    for n in nodes.iter_mut() {
         n.remove();
     }
     nodes.clear();
@@ -107,8 +107,8 @@ mod tests {
             #[test]
             fn $name() {
                 let doc = Document::from_str($in_text).unwrap();
-                let node = doc.descendants().find(|n| n.is_tag_name(EId::Path)).unwrap();
-                utils::recalc_stroke(&node, 2.0);
+                let mut node = doc.descendants().find(|n| n.is_tag_name(EId::Path)).unwrap();
+                utils::recalc_stroke(&mut node, 2.0);
                 assert_eq_text!(doc.to_string_with_opt(&write_opt_for_tests!()), $out_text);
             }
         )

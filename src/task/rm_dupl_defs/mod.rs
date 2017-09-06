@@ -54,7 +54,7 @@ fn rm_loop<F>(nodes: &mut Vec<Node>, cmp: F)
 
         let mut i2 = i1 + 1;
         while i2 < len {
-            let node2 = nodes[i2].clone();
+            let mut node2 = nodes[i2].clone();
             i2 += 1;
 
             if !cmp(&node1, &node2) {
@@ -79,7 +79,7 @@ fn rm_loop<F>(nodes: &mut Vec<Node>, cmp: F)
 
             // Relink nodes.
             if !link_attrs.is_empty() {
-                for &(ref ln, ref aid, ref n) in &link_attrs {
+                for &mut (ref mut ln, ref aid, ref n) in &mut link_attrs {
                     if *ln.id() != *n.id() {
                         ln.set_attribute((*aid, n.clone()));
                     }
@@ -133,7 +133,7 @@ pub fn is_equal_stops(node1: &Node, node2: &Node) -> bool {
     let iter1 = node1.children();
     let iter2 = node2.children();
 
-    for (c1, c2) in iter1.zip(iter2) {
+    for (mut c1, mut c2) in iter1.zip(iter2) {
         let attrs1 = c1.attributes_mut();
         let attrs2 = c2.attributes_mut();
 

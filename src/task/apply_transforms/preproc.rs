@@ -48,7 +48,7 @@ pub fn prepare_transforms(parent: &Node, recurcive: bool, opt: &CleaningOptions)
     let iter = parent.descendants().svg().filter(|n|    n.is_tag_name(EId::G)
                                                      && n.has_attribute(AId::Transform));
 
-    for node in iter {
+    for mut node in iter {
         if !utils::has_valid_transform(&node) || !utils::is_valid_attrs(&node) {
             continue;
         }
@@ -82,7 +82,7 @@ pub fn prepare_transforms(parent: &Node, recurcive: bool, opt: &CleaningOptions)
 }
 
 fn apply_ts_to_children(node: &Node, ts: Transform) {
-    for child in node.children().svg() {
+    for mut child in node.children().svg() {
         if child.has_attribute(AId::Transform) {
             // We should multiply transform matrices.
             let mut ts1 = ts;

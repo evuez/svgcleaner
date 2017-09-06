@@ -25,7 +25,7 @@ use svgdom::{
 use task::short::EId;
 
 pub fn ungroup_defs(doc: &Document) {
-    for node in doc.descendants().svg().filter(|n| n.is_tag_name(EId::Defs)) {
+    for mut node in doc.descendants().svg().filter(|n| n.is_tag_name(EId::Defs)) {
         let mut is_valid = true;
         for child in node.children() {
             if !child.is_referenced() {
@@ -35,8 +35,8 @@ pub fn ungroup_defs(doc: &Document) {
         }
 
         if is_valid {
-            let nodes: Vec<Node> = node.children().collect();
-            for n in nodes {
+            let mut nodes: Vec<Node> = node.children().collect();
+            for n in nodes.iter_mut() {
                 n.detach();
                 node.insert_before(&n);
             }

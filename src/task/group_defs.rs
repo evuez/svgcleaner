@@ -25,12 +25,12 @@ use svgdom::{
 
 use task::short::EId;
 
-pub fn group_defs(doc: &Document) {
+pub fn group_defs(doc: &mut Document) {
     // doc must contain 'svg' node, so we can safely unwrap.
-    let svg = doc.svg_element().unwrap();
+    let mut svg = doc.svg_element().unwrap();
 
     // Create 'defs' node if it didn't exist already.
-    let defs = match doc.descendants().filter(|n| n.is_tag_name(EId::Defs)).nth(0) {
+    let mut defs = match doc.descendants().filter(|n| n.is_tag_name(EId::Defs)).nth(0) {
         Some(n) => n,
         None => doc.create_element(EId::Defs),
     };
@@ -54,7 +54,7 @@ pub fn group_defs(doc: &Document) {
             }
         }
 
-        for n in nodes {
+        for n in nodes.iter_mut() {
             resolve_attrs(&n);
             n.detach();
             defs.append(&n);
@@ -72,7 +72,7 @@ pub fn group_defs(doc: &Document) {
             }
         }
 
-        for n in nodes {
+        for n in nodes.iter_mut() {
             n.detach();
             defs.append(&n);
         }
@@ -87,7 +87,7 @@ pub fn group_defs(doc: &Document) {
             }
         }
 
-        for n in nodes {
+        for n in nodes.iter_mut() {
             // Unneeded defs already ungrouped and must be empty.
             debug_assert!(!n.has_children());
             n.remove();
@@ -108,7 +108,7 @@ fn resolve_attrs(node: &Node) {
             while let Some(p) = parent.parent() {
                 let attrs = p.attributes();
                 for (aid, attr) in attrs.iter_svg().filter(|&(_, a)| a.is_inheritable()) {
-                    for child in node.children() {
+                    for mut child in node.children() {
                         if child.has_attribute(aid) {
                             continue;
                         }

@@ -22,12 +22,12 @@ use svgdom::postproc;
 use task::short::EId;
 
 pub fn fix_invalid_attributes(doc: &Document) {
-    for node in doc.descendants().svg() {
+    for mut node in doc.descendants().svg() {
         // We are iterating only over svg elements, which all have a tag name.
         match node.tag_id().unwrap() {
-            EId::Rect => postproc::fix_rect_attributes(&node),
-            EId::Polyline | EId::Polygon => postproc::fix_poly_attributes(&node),
-            EId::LinearGradient | EId::RadialGradient => postproc::fix_stop_attributes(&node),
+            EId::Rect => postproc::fix_rect_attributes(&mut node),
+            EId::Polyline | EId::Polygon => postproc::fix_poly_attributes(&mut node),
+            EId::LinearGradient | EId::RadialGradient => postproc::fix_stop_attributes(&mut node),
             _ => {}
         }
     }

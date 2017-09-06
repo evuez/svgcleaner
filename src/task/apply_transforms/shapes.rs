@@ -29,18 +29,18 @@ use super::utils;
 pub fn apply_transform_to_shapes(doc: &Document) {
     // Apply transform to shapes.
     let iter = doc.descendants().svg().filter(|n| n.has_attribute(AId::Transform));
-    for node in iter {
+    for mut node in iter {
         match node.tag_id().unwrap() {
-            EId::Rect => process_rect(&node),
-            EId::Circle => process_circle(&node),
-            EId::Ellipse => process_ellipse(&node),
-            EId::Line => process_line(&node),
+            EId::Rect => process_rect(&mut node),
+            EId::Circle => process_circle(&mut node),
+            EId::Ellipse => process_ellipse(&mut node),
+            EId::Line => process_line(&mut node),
             _ => {}
         }
     }
 }
 
-fn process<F>(node: &Node, func: F)
+fn process<F>(node: &mut Node, func: F)
     where F : Fn(&mut Attributes, &Transform)
 {
     if    !utils::has_valid_transform(node)
@@ -64,7 +64,7 @@ fn process<F>(node: &Node, func: F)
     }
 }
 
-fn process_rect(node: &Node) {
+fn process_rect(node: &mut Node) {
     process(node, |mut attrs, ts| {
         utils::transform_coords(&mut attrs, AId::X, AId::Y, ts);
 
@@ -80,7 +80,7 @@ fn process_rect(node: &Node) {
     });
 }
 
-fn process_circle(node: &Node) {
+fn process_circle(node: &mut Node) {
     process(node, |mut attrs, ts| {
         utils::transform_coords(&mut attrs, AId::Cx, AId::Cy, ts);
 
@@ -91,7 +91,7 @@ fn process_circle(node: &Node) {
     });
 }
 
-fn process_ellipse(node: &Node) {
+fn process_ellipse(node: &mut Node) {
     process(node, |mut attrs, ts| {
         utils::transform_coords(&mut attrs, AId::Cx, AId::Cy, ts);
 
@@ -103,7 +103,7 @@ fn process_ellipse(node: &Node) {
     });
 }
 
-fn process_line(node: &Node) {
+fn process_line(node: &mut Node) {
     process(node, |mut attrs, ts| {
         utils::transform_coords(&mut attrs, AId::X1, AId::Y1, ts);
         utils::transform_coords(&mut attrs, AId::X2, AId::Y2, ts);

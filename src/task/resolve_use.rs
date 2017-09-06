@@ -60,7 +60,7 @@ pub fn resolve_use(doc: &Document) {
         }
     }
 
-    for (node, link) in nodes {
+    for (mut node, mut link) in nodes {
         // Unlink 'use'.
         node.remove_attribute(AId::XlinkHref);
 

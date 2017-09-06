@@ -30,7 +30,7 @@ pub fn apply_transform_to_gradients(doc: &Document) {
                   .filter(|n| n.is_gradient())
                   .filter(|n| n.has_attribute(AId::GradientTransform));
 
-    for node in iter {
+    for mut node in iter {
         {
             let flag = node.linked_nodes().any(|n| n.is_gradient());
 

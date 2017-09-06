@@ -60,7 +60,7 @@ pub fn parse_data(data: &str, opt: &ParseOptions) -> Result<Document, svgdom::Er
     Document::from_str_with_opt(data, opt)
 }
 
-pub fn clean_doc(doc: &Document, options: &CleaningOptions, opt: &WriteOptions)
+pub fn clean_doc(doc: &mut Document, options: &CleaningOptions, opt: &WriteOptions)
                  -> Result<(), error::Error> {
     preclean_checks(doc)?;
 

@@ -102,7 +102,7 @@ fn main() {
     };
 
     // Parse it.
-    let doc = match cleaner::parse_data(&raw[..], &parse_opt) {
+    let mut doc = match cleaner::parse_data(&raw[..], &parse_opt) {
         Ok(d) => d,
         Err(e) => {
             writeln!(stderr(), "Error: {:?}.", e).unwrap();
@@ -121,7 +121,7 @@ fn main() {
         buf.clear();
 
         // Clean document.
-        match cleaner::clean_doc(&doc, &cleaning_opt, &write_opt) {
+        match cleaner::clean_doc(&mut doc, &cleaning_opt, &write_opt) {
             Ok(_) => {}
             Err(e) => {
                 writeln!(stderr(), "Error: {:?}.", e).unwrap();
