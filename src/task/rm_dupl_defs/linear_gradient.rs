@@ -53,7 +53,7 @@ pub fn remove_dupl_linear_gradients(doc: &Document) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use svgdom;
 
     macro_rules! test {

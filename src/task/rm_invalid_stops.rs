@@ -56,7 +56,7 @@ pub fn remove_invalid_stops(doc: &Document) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use task::utils;
     use task::fix_attrs;
 

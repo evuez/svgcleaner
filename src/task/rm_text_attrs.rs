@@ -244,7 +244,7 @@ fn is_text_contains_spaces(text_node: &Node) -> bool {
 mod tests {
     use super::*;
     use super::remove_xml_space;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
 
     macro_rules! test {
         ($name:ident, $in_text:expr, $out_text:expr) => (

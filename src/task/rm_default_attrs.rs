@@ -233,7 +233,7 @@ fn is_default(attr: &Attribute, tag_name: EId) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
 
     macro_rules! test {
         ($name:ident, $in_text:expr, $out_text:expr) => (

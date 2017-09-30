@@ -140,7 +140,7 @@ mod utils {
 mod tests {
     use super::*;
     use options::CleaningOptions;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
 
     macro_rules! test {
         ($name:ident, $in_text:expr, $out_text:expr) => (

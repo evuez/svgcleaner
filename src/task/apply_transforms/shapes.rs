@@ -113,7 +113,7 @@ fn process_line(node: &mut Node) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use task::utils;
 
     macro_rules! test {

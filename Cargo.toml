@@ -28,12 +28,12 @@ clippy = {version = "*", optional = true}
 
 [dependencies.svgdom]
 # latest
-git = "https://github.com/RazrFalcon/libsvgdom.git"
-branch = "devel"
+# git = "https://github.com/RazrFalcon/libsvgdom.git"
+# branch = "devel"
 # local copy
 # path = "../svgdom"
 # from crates
-# version = "0.5"
+version = "0.8"
 
 [dependencies.clap]
 version = "2"

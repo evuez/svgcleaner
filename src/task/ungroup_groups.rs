@@ -194,7 +194,7 @@ fn ungroup_group(g: &mut Node) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use task::{group_defs, remove_empty_defs, rm_unused_defs};
     use options::CleaningOptions;
 

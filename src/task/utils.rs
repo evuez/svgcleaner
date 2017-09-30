@@ -99,7 +99,7 @@ pub fn remove_nodes(nodes: &mut Vec<Node>) {
 #[cfg(test)]
 mod tests {
     use task::short::EId;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use task::utils;
 
     macro_rules! test {

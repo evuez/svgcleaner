@@ -178,7 +178,7 @@ fn make_attr_invisible(node: &mut Node, aid: AId) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use task::utils;
 
     macro_rules! test {

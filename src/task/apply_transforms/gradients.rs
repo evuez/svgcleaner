@@ -90,7 +90,7 @@ pub fn apply_transform_to_gradients(doc: &Document) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString};
+    use svgdom::{Document, ToStringWithOptions};
     use task::utils;
 
     macro_rules! test {

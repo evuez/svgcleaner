@@ -561,7 +561,7 @@ fn move_nodes(attributes: &[Attribute], g_node: &mut Node, node_list: &mut [Node
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString, WriteOptions};
+    use svgdom::{Document, ToStringWithOptions, WriteOptions};
 
     macro_rules! test {
         ($name:ident, $in_text:expr, $out_text:expr) => (

@@ -30,7 +30,7 @@ pub fn remove_unreferenced_ids(doc: &Document) {
 mod tests {
     use super::*;
     use svgdom::Document;
-    use svgdom::WriteToString;
+    use svgdom::ToStringWithOptions;
 
     macro_rules! test {
         ($name:ident, $in_text:expr, $out_text:expr) => (

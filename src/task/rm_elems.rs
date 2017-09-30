@@ -28,7 +28,7 @@ pub fn remove_element(doc: &mut Document, id: EId) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use svgdom::{Document, WriteToString, ElementId};
+    use svgdom::{Document, ToStringWithOptions, ElementId};
 
     macro_rules! test {
         ($name:ident, $id:expr, $in_text:expr, $out_text:expr) => (
